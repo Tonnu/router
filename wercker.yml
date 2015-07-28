@@ -5,7 +5,7 @@ build:
         packages: wget build-essential libreadline-dev libncurses5-dev libpcre3-dev libssl-dev
     - script:
         name: install ngx
-        code: -|
+        code: |
           wget http://openresty.org/download/ngx_openresty-1.7.10.1.tar.gz \
             && tar xvfz ngx_openresty-1.7.10.1.tar.gz \
             && cd ngx_openresty-1.7.10.1 \
