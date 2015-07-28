@@ -19,6 +19,9 @@ build:
     - script:
         name: cp config & chmod
         code: cp nginx.conf app.lua /usr/local/openresty/nginx/conf/ && chmod a+r /usr/local/openresty/nginx/conf/*
+    - script:
+        name: cat cfg 
+        code: cat /usr/local/openresty/nginx/conf/app.lua
     - internal/docker-push:
         username: $DOCKER_USERNAME
         password: $DOCKER_PASSWORD
