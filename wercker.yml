@@ -14,11 +14,14 @@ build:
             && make install \
             && rm -rf /ngx_openresty*
     - script:
+        name: mkdir
+        code: mkdir -p mkdir /usr/local/openresty/nginx/conf
+    - script:
         name: cp config & chmod
         code: cp nginx.conf app.lua /usr/local/openresty/nginx/conf/ && chmod a+r /usr/local/openresty/nginx/conf/*
     - internal/docker-push:
         username: $DOCKER_USERNAME
-        password: $DOCKER_PASS
+        password: $DOCKER_PASSWORD
         repository: tonnu/router
         cmd: "/usr/local/openresty/nginx/sbin/nginx"
         ports: "8080"
