@@ -2,7 +2,7 @@ box: debian:jessie
 build:
   steps:
     - install-packages:
-        packages: wget build-essential libreadline-dev libncurses5-dev libpcre3-dev libssl-dev
+        packages: wget build-essential libreadline-dev libncurses5-dev libpcre3-dev libssl-dev sed
     - script:
         name: install ngx
         code: |
@@ -17,6 +17,9 @@ build:
         name: mkdir
         code: mkdir -p mkdir /usr/local/openresty/nginx/conf
     - script:
+        name: replace app name with env var value
+        code: sed -i -e 's/APP_NAME_HERE/'"$APP_NAME"'/g' app.lua
+   - script:
         name: cp config & chmod
         code: cp nginx.conf app.lua /usr/local/openresty/nginx/conf/ && chmod a+r /usr/local/openresty/nginx/conf/*
     - script:
