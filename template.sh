@@ -1,5 +1,7 @@
+#!/bin/bash
+cat > router.json <<EOF
 {
-  "id": "/oinker-router",
+  "id": "/edgerouter",
   "cpus": 1,
   "mem": 256,
   "instances": 1,
@@ -8,8 +10,9 @@
   "container": {
     "type": "DOCKER",
     "docker": {
-      "image": "mesosphere/oinker-router:06506e020400bdc89b5e0a510993f5f62227a8e2",
+      "image": "$ROUTER_CONTAINER",
       "network": "BRIDGE",
+      "forcePullImage": true,
       "portMappings": [
           {
               "containerPort": 8080,
@@ -26,5 +29,7 @@
       "portIndex": 0,
       "timeoutSeconds": 10,
       "maxConsecutiveFailures": 2
-  }]
+  }],
+  "env": {"APP_NAME": "$APP_NAME"}
 }
+EOF

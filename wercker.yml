@@ -17,11 +17,27 @@ build:
         name: mkdir
         code: mkdir -p mkdir /usr/local/openresty/nginx/conf
     - script:
+        name: cp template.sh
+        code: cp template.sh $WERCKER_OUTPUT_DIR
+    - script:
         name: cp config & chmod
         code: cp nginx.conf app.lua /usr/local/openresty/nginx/conf/ && chmod a+r /usr/local/openresty/nginx/conf/*
     - internal/docker-push:
         username: $DOCKER_USERNAME
         password: $DOCKER_PASSWORD
-        repository: tonnu/router
+        repository: $ROUTER_CONTAINER
         cmd: "/usr/local/openresty/nginx/sbin/nginx"
         ports: "8080"
+deploy:
+  steps:
+    - install-packages:
+        packages: curl
+    - script:
+        name: generate json
+        code: chmod +x template.sh && ./template.sh
+    - script:
+        name: deploy router to marathon
+        code: | 
+          curl -XDELETE -H "Content-type: application/json" $MARATHON_ENDPOINT/edgerouter
+          sleep 1
+          curl -XPOST -H "Content-type: application/json" -d @router.json $MARATHON_ENDPOINT
