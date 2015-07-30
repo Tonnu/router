@@ -35,9 +35,8 @@ deploy:
     - script:
         name: generate json
         code: chmod +x template.sh && ./template.sh
-    - script:
-        name: deploy router to marathon
-        code: | 
-          curl -XDELETE -H "Content-type: application/json" $MARATHON_ENDPOINT/edgerouter
-          sleep 1
-          curl -XPOST -H "Content-type: application/json" -d @router.json $MARATHON_ENDPOINT
+    - wercker/mesosphere-deploy:
+        marathon-url: $MARATHON_ENDPOINT
+        app-name: $APP_NAME
+        app-json-file: $APP_NAME.json
+
