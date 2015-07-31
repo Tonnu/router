@@ -10,7 +10,7 @@ cat > router.json <<EOF
   "container": {
     "type": "DOCKER",
     "docker": {
-      "image": "$ROUTER_CONTAINER",
+      "image": "$APP_IMAGE",
       "network": "BRIDGE",
       "forcePullImage": true,
       "portMappings": [
