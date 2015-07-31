@@ -38,6 +38,6 @@ deploy:
         code: chmod +x template.sh && ./template.sh
     - wercker/marathon-deploy:
         marathon-url: $MARATHON_ENDPOINT
-        app-name: $APP_NAME
-        app-json-file: $APP_NAME.json
+        app-name: "edgerouter"
+        app-json-file: "router.json"
 
