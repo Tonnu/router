@@ -36,7 +36,7 @@ deploy:
     - script:
         name: generate json
         code: chmod +x template.sh && ./template.sh
-    - wercker/mesosphere-deploy:
+    - wercker/marathon-deploy:
         marathon-url: $MARATHON_ENDPOINT
         app-name: $APP_NAME
         app-json-file: $APP_NAME.json
